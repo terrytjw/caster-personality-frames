@@ -38,7 +38,7 @@ const app = new Frog<{ State: State }>({
   },
 });
 
-export const quiz = [
+const quiz = [
   {
     question: "How do you use Warpcast?",
     answer: "I show off my achievements",
@@ -175,7 +175,10 @@ app.frame("/q1", (c) => {
       <div
         style={{
           alignItems: "center",
-          backgroundImage: `url("https://i.kym-cdn.com/entries/icons/mobile/000/032/280/meme1.jpg")`,
+          background:
+            status === "response"
+              ? "linear-gradient(to right, #432889, #17101F)"
+              : "black",
           backgroundSize: "100% 100%",
           display: "flex",
           flexDirection: "column",
@@ -189,103 +192,92 @@ app.frame("/q1", (c) => {
       >
         <div
           style={{
+            color: "white",
+            fontSize: 60,
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 30,
             display: "flex",
-            flexDirection: "column",
-            justifyItems: "start",
-            flexWrap: "nowrap",
-            paddingBottom: 50,
-            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            flexDirection: "row",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {questions[0].question}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
           }}
         >
           <div
             style={{
               color: "white",
-              fontSize: 60,
+              fontSize: 30,
               fontStyle: "normal",
               letterSpacing: "-0.025em",
               lineHeight: 1.4,
               marginTop: 30,
               display: "flex",
-              flexDirection: "row",
               padding: "0 120px",
               whiteSpace: "pre-wrap",
             }}
           >
-            {questions[0].question}
+            A. {questions[0].options[0]}
           </div>
           <div
             style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
               display: "flex",
-              flexDirection: "row",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
             }}
           >
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              A. {questions[0].options[0]}
-            </div>
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              B. {questions[0].options[1]}
-            </div>
+            B. {questions[0].options[1]}
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            C. {questions[0].options[2]}
           </div>
           <div
             style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
               display: "flex",
-              flexDirection: "row",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
             }}
           >
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              C. {questions[0].options[2]}
-            </div>
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              D. {questions[0].options[3]}
-            </div>
+            D. {questions[0].options[3]}
           </div>
         </div>
       </div>
@@ -313,7 +305,10 @@ app.frame("/q2", (c) => {
       <div
         style={{
           alignItems: "center",
-          backgroundImage: `url("https://preview.redd.it/i-think-doginme-is-a-good-bid-here-v0-p0c1mv36bxsc1.jpeg?auto=webp&s=0cd5c541a3cd2d923184d96b3d1e00ce804ac123")`,
+          background:
+            status === "response"
+              ? "linear-gradient(to right, #432889, #17101F)"
+              : "black",
           backgroundSize: "100% 100%",
           display: "flex",
           flexDirection: "column",
@@ -327,103 +322,92 @@ app.frame("/q2", (c) => {
       >
         <div
           style={{
+            color: "white",
+            fontSize: 60,
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 30,
             display: "flex",
-            flexDirection: "column",
-            justifyItems: "start",
-            flexWrap: "nowrap",
-            paddingBottom: 50,
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            flexDirection: "row",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {questions[1].question}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
           }}
         >
           <div
             style={{
               color: "white",
-              fontSize: 60,
+              fontSize: 30,
               fontStyle: "normal",
               letterSpacing: "-0.025em",
               lineHeight: 1.4,
               marginTop: 30,
               display: "flex",
-              flexDirection: "row",
               padding: "0 120px",
               whiteSpace: "pre-wrap",
             }}
           >
-            {questions[1].question}
+            A. {questions[1].options[0]}
           </div>
           <div
             style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
               display: "flex",
-              flexDirection: "row",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
             }}
           >
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              A. {questions[1].options[0]}
-            </div>
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              B. {questions[1].options[1]}
-            </div>
+            B. {questions[1].options[1]}
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            C. {questions[1].options[2]}
           </div>
           <div
             style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
               display: "flex",
-              flexDirection: "row",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
             }}
           >
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              C. {questions[1].options[2]}
-            </div>
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              D. {questions[1].options[3]}
-            </div>
+            D. {questions[1].options[3]}
           </div>
         </div>
       </div>
@@ -451,7 +435,10 @@ app.frame("/q3", (c) => {
       <div
         style={{
           alignItems: "center",
-          backgroundImage: `url("https://www.coindesk.com/resizer/IYnjQ1F52nK_Aqpl-XXe5mTFFiI=/800x600/cloudfront-us-east-1.images.arcpublishing.com/coindesk/GCRFABYIGRD3DEBNVM3DZ6Z3DY.png")`,
+          background:
+            status === "response"
+              ? "linear-gradient(to right, #432889, #17101F)"
+              : "black",
           backgroundSize: "100% 100%",
           display: "flex",
           flexDirection: "column",
@@ -465,103 +452,92 @@ app.frame("/q3", (c) => {
       >
         <div
           style={{
+            color: "white",
+            fontSize: 60,
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 30,
             display: "flex",
-            flexDirection: "column",
-            justifyItems: "start",
-            flexWrap: "nowrap",
-            paddingBottom: 50,
-            backgroundColor: "rgba(0, 0, 0, 0.9)",
+            flexDirection: "row",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {questions[2].question}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
           }}
         >
           <div
             style={{
               color: "white",
-              fontSize: 60,
+              fontSize: 30,
               fontStyle: "normal",
               letterSpacing: "-0.025em",
               lineHeight: 1.4,
               marginTop: 30,
               display: "flex",
-              flexDirection: "row",
               padding: "0 120px",
               whiteSpace: "pre-wrap",
             }}
           >
-            {questions[2].question}
+            A. {questions[2].options[0]}
           </div>
           <div
             style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
               display: "flex",
-              flexDirection: "row",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
             }}
           >
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              A. {questions[2].options[0]}
-            </div>
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              B. {questions[2].options[1]}
-            </div>
+            B. {questions[2].options[1]}
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            C. {questions[2].options[2]}
           </div>
           <div
             style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
               display: "flex",
-              flexDirection: "row",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
             }}
           >
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              C. {questions[2].options[2]}
-            </div>
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              D. {questions[2].options[3]}
-            </div>
+            D. {questions[2].options[3]}
           </div>
         </div>
       </div>
@@ -589,7 +565,10 @@ app.frame("/q4", (c) => {
       <div
         style={{
           alignItems: "center",
-          backgroundImage: `url("https://i.pinimg.com/736x/4a/8c/9b/4a8c9b9955a61c1458bbb3b1fe8c0902.jpg")`,
+          background:
+            status === "response"
+              ? "linear-gradient(to right, #432889, #17101F)"
+              : "black",
           backgroundSize: "100% 100%",
           display: "flex",
           flexDirection: "column",
@@ -603,104 +582,108 @@ app.frame("/q4", (c) => {
       >
         <div
           style={{
+            color: "white",
+            fontSize: 60,
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 30,
             display: "flex",
-            flexDirection: "column",
-            justifyItems: "start",
-            flexWrap: "nowrap",
-            paddingBottom: 50,
-            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            flexDirection: "row",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {questions[3].question}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
           }}
         >
           <div
             style={{
               color: "white",
-              fontSize: 60,
+              fontSize: 30,
               fontStyle: "normal",
               letterSpacing: "-0.025em",
               lineHeight: 1.4,
               marginTop: 30,
               display: "flex",
-              flexDirection: "row",
               padding: "0 120px",
               whiteSpace: "pre-wrap",
             }}
           >
-            {questions[2].question}
+            A. {questions[3].options[0]}
           </div>
           <div
             style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
               display: "flex",
-              flexDirection: "row",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
             }}
           >
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              A. {questions[2].options[0]}
-            </div>
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              B. {questions[2].options[1]}
-            </div>
+            B. {questions[3].options[1]}
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            C. {questions[3].options[2]}
           </div>
           <div
             style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
               display: "flex",
-              flexDirection: "row",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
             }}
           >
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              C. {questions[2].options[2]}
-            </div>
-            <div
-              style={{
-                color: "white",
-                fontSize: 30,
-                fontStyle: "normal",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.4,
-                marginTop: 30,
-                display: "flex",
-                padding: "0 120px",
-                whiteSpace: "pre-wrap",
-              }}
-            >
-              D. {questions[2].options[3]}
-            </div>
+            D. {questions[3].options[3]}
           </div>
+        </div>
+        <div
+          style={{
+            color: "yellow",
+            fontSize: 20,
+            fontStyle: "italic",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 60,
+            display: "flex",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          (Hodl on, we are almost there!)
         </div>
       </div>
     ),
@@ -743,90 +726,67 @@ app.frame("/result", async (c) => {
       <div
         style={{
           alignItems: "center",
-          backgroundImage:
-            jsonResult.personalitytype === "gm Officer"
-              ? `url("https://i.pinimg.com/736x/4a/8c/9b/4a8c9b9955a61c1458bbb3b1fe8c0902.jpg")`
-              : jsonResult.personalitytype === "Flex Monster"
-                ? `url("https://i.pinimg.com/736x/4a/8c/9b/4a8c9b9955a61c1458bbb3b1fe8c0902.jpg")`
-                : jsonResult.personalitytype === "Information Guru"
-                  ? `url("https://i.pinimg.com/736x/4a/8c/9b/4a8c9b9955a61c1458bbb3b1fe8c0902.jpg")`
-                  : `url("https://i.pinimg.com/736x/4a/8c/9b/4a8c9b9955a61c1458bbb3b1fe8c0902.jpg")`, //TODO: replace this
+          background:
+            status === "response"
+              ? "linear-gradient(to right, #432889, #17101F)"
+              : "black",
           backgroundSize: "100% 100%",
           display: "flex",
           flexDirection: "column",
-          justifyItems: "start",
           flexWrap: "nowrap",
           height: "100%",
           justifyContent: "center",
           textAlign: "center",
           width: "100%",
+          color: "white",
+          fontSize: 30,
         }}
       >
         <div
           style={{
+            color: "white",
+            fontSize: 40,
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 30,
             display: "flex",
-            flexDirection: "column",
-            justifyItems: "center",
-            flexWrap: "nowrap",
-            justifyContent: "center",
-            textAlign: "center",
-            paddingBottom: 50,
-            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            flexDirection: "row",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
           }}
         >
-          <div
-            style={{
-              color: "white",
-              fontSize: 40,
-              fontWeight: "bold",
-              letterSpacing: "-0.025em",
-              lineHeight: 1.4,
-              marginTop: 30,
-              display: "flex",
-              justifyContent: "center",
-              justifyItems: "center",
-              flexDirection: "row",
-
-              textAlign: "center",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {jsonResult.personalitytype}
-          </div>
-          <div
-            style={{
-              color: "white",
-              fontSize: 30,
-              fontStyle: "normal",
-              letterSpacing: "-0.025em",
-              display: "flex",
-              justifyContent: "center",
-              justifyItems: "center",
-              lineHeight: 1.4,
-              marginTop: 30,
-
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {jsonResult.reasoning}
-          </div>
-          <div
-            style={{
-              color: "yellow",
-              fontSize: 25,
-              fontStyle: "normal",
-              letterSpacing: "-0.025em",
-              lineHeight: 1.4,
-              display: "flex",
-              justifyContent: "center",
-              justifyItems: "center",
-              marginTop: 30,
-
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {jsonResult.example}
-          </div>
+          {jsonResult.personalitytype}
+        </div>
+        <div
+          style={{
+            color: "white",
+            fontSize: 30,
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 30,
+            display: "flex",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {jsonResult.reasoning}
+        </div>
+        <div
+          style={{
+            color: "yellow",
+            fontSize: 25,
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 30,
+            display: "flex",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {jsonResult.example}
         </div>
       </div>
     ),
