@@ -11,6 +11,8 @@ import {
   fetchFeedByFids,
   fetchAndProcessFeeds,
 } from "@/app/lib/farcaster";
+import { dummyQuizData, dummyWarpcastData } from "@/app/data";
+import { classifyPersonality } from "@/app/lib/openai";
 import { questions } from "@/app/data";
 
 type State = {
@@ -83,7 +85,8 @@ app.frame("/", async (c) => {
   result.userCastsData = feeds;
   // TODO: ai stuff
 
-  console.log(c, "c");
+  await classifyPersonality(dummyWarpcastData, dummyQuizData);
+
   return c.res({
     action: "/q1",
     image: (
