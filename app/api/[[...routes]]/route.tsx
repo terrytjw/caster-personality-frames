@@ -85,7 +85,8 @@ app.frame("/", async (c) => {
   result.userCastsData = feeds;
   // TODO: ai stuff
 
-  await classifyPersonality(dummyWarpcastData, dummyQuizData);
+  const personalityInfo = await classifyPersonality(dummyWarpcastData, dummyQuizData);
+  console.log("personalityInfo -> ", personalityInfo)
 
   return c.res({
     action: "/q1",

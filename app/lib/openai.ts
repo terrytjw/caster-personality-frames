@@ -57,10 +57,10 @@ export const classifyPersonality = async (
 
   console.log("Classifying personality...");
 
-  const res = await chain.invoke({
+  const personalityInfo = await chain.invoke({
     warpcastData,
     quizResult,
   });
 
-  console.log("Personality Info: ", res);
+  return personalityInfo;
 };
