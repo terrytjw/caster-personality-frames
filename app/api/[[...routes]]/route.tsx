@@ -11,9 +11,8 @@ import {
   fetchFeedByFids,
   fetchAndProcessFeeds,
 } from "@/app/lib/farcaster";
-import { dummyQuizData, dummyWarpcastData } from "@/app/data";
+import { dummyQuizData, dummyWarpcastData, questions } from "@/app/data";
 import { classifyPersonality } from "@/app/lib/openai";
-import { questions } from "@/app/data";
 
 type State = {
   user: any;
@@ -39,6 +38,25 @@ const app = new Frog<{ State: State }>({
   },
 });
 
+export const quiz = [
+  {
+    question: "How do you use Warpcast?",
+    answer: "I show off my achievements",
+  },
+  {
+    question: "What's your posting style?",
+    answer: "Informative threads",
+  },
+  {
+    question: "What's your main content?",
+    answer: "Memes and trolls",
+  },
+  {
+    question: "How do others describe you?",
+    answer: "The show-off",
+  },
+];
+
 let result = {
   userCastsData: [],
   user: {},
@@ -47,24 +65,6 @@ let result = {
   qn_three: "",
   qn_four: "",
 };
-let qna = [
-  {
-    question: "How do you use Warpcast?",
-    answer: "",
-  },
-  {
-    question: "What's your posting style?",
-    answer: "",
-  },
-  {
-    question: "What's your main content?",
-    answer: "",
-  },
-  {
-    question: "How do others describe you?",
-    answer: "",
-  },
-];
 
 // Uncomment to use Edge Runtime
 // export const runtime = 'edge'
@@ -85,9 +85,7 @@ app.frame("/", async (c) => {
   result.userCastsData = feeds;
   // TODO: ai stuff
 
-  const personalityInfo = await classifyPersonality(dummyWarpcastData, dummyQuizData);
-  console.log("personalityInfo -> ", personalityInfo)
-
+  console.log(c, "c");
   return c.res({
     action: "/q1",
     image: (
@@ -184,6 +182,7 @@ app.frame("/q1", (c) => {
           backgroundSize: "100% 100%",
           display: "flex",
           flexDirection: "column",
+          justifyItems: "start",
           flexWrap: "nowrap",
           height: "100%",
           justifyContent: "center",
@@ -209,63 +208,77 @@ app.frame("/q1", (c) => {
         </div>
         <div
           style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
             display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
+            flexDirection: "row",
           }}
         >
-          A. {questions[0].options[0]}
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            A. {questions[0].options[0]}
+          </div>
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            B. {questions[0].options[1]}
+          </div>
         </div>
         <div
           style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
             display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
+            flexDirection: "row",
           }}
         >
-          B. {questions[0].options[1]}
-        </div>
-        <div
-          style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
-            display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          C. {questions[0].options[2]}
-        </div>
-        <div
-          style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
-            display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          D. {questions[0].options[3]}
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            C. {questions[0].options[2]}
+          </div>
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            D. {questions[0].options[3]}
+          </div>
         </div>
       </div>
     ),
@@ -283,7 +296,8 @@ app.frame("/q2", (c) => {
   const { buttonValue, inputText, status, deriveState } = c;
   const fruit = inputText || buttonValue;
   console.log(result, "result");
-  result.qn_one = buttonValue;
+  result.qn_one = buttonValue || "";
+  quiz[0].answer = buttonValue || "";
   console.log(c, "c2");
   return c.res({
     action: "/q3",
@@ -298,6 +312,7 @@ app.frame("/q2", (c) => {
           backgroundSize: "100% 100%",
           display: "flex",
           flexDirection: "column",
+          justifyItems: "start",
           flexWrap: "nowrap",
           height: "100%",
           justifyContent: "center",
@@ -323,63 +338,77 @@ app.frame("/q2", (c) => {
         </div>
         <div
           style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
             display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
+            flexDirection: "row",
           }}
         >
-          A. {questions[1].options[0]}
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            A. {questions[1].options[0]}
+          </div>
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            B. {questions[1].options[1]}
+          </div>
         </div>
         <div
           style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
             display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
+            flexDirection: "row",
           }}
         >
-          B. {questions[1].options[1]}
-        </div>
-        <div
-          style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
-            display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          C. {questions[1].options[2]}
-        </div>
-        <div
-          style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
-            display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          D. {questions[1].options[3]}
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            C. {questions[1].options[2]}
+          </div>
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            D. {questions[1].options[3]}
+          </div>
         </div>
       </div>
     ),
@@ -397,7 +426,8 @@ app.frame("/q3", (c) => {
   const { buttonValue, inputText, status, deriveState } = c;
   const fruit = inputText || buttonValue;
   console.log(result, "result");
-  result.qn_two = buttonValue;
+  result.qn_two = buttonValue || "";
+  quiz[1].answer = buttonValue || "";
   console.log(c, "c2");
   return c.res({
     action: "/q4",
@@ -412,6 +442,7 @@ app.frame("/q3", (c) => {
           backgroundSize: "100% 100%",
           display: "flex",
           flexDirection: "column",
+          justifyItems: "start",
           flexWrap: "nowrap",
           height: "100%",
           justifyContent: "center",
@@ -437,63 +468,77 @@ app.frame("/q3", (c) => {
         </div>
         <div
           style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
             display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
+            flexDirection: "row",
           }}
         >
-          A. {questions[2].options[0]}
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            A. {questions[2].options[0]}
+          </div>
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            B. {questions[2].options[1]}
+          </div>
         </div>
         <div
           style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
             display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
+            flexDirection: "row",
           }}
         >
-          B. {questions[2].options[1]}
-        </div>
-        <div
-          style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
-            display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          C. {questions[2].options[2]}
-        </div>
-        <div
-          style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
-            display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          D. {questions[2].options[3]}
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            C. {questions[2].options[2]}
+          </div>
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            D. {questions[2].options[3]}
+          </div>
         </div>
       </div>
     ),
@@ -511,7 +556,8 @@ app.frame("/q4", (c) => {
   const { buttonValue, inputText, status, deriveState } = c;
   const fruit = inputText || buttonValue;
   console.log(result, "result");
-  result.qn_four = buttonValue;
+  result.qn_four = buttonValue || "";
+  quiz[2].answer = buttonValue || "";
   console.log(c, "c2");
   return c.res({
     action: "/result",
@@ -526,6 +572,7 @@ app.frame("/q4", (c) => {
           backgroundSize: "100% 100%",
           display: "flex",
           flexDirection: "column",
+          justifyItems: "start",
           flexWrap: "nowrap",
           height: "100%",
           justifyContent: "center",
@@ -551,63 +598,92 @@ app.frame("/q4", (c) => {
         </div>
         <div
           style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
             display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
+            flexDirection: "row",
           }}
         >
-          A. {questions[3].options[0]}
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            A. {questions[3].options[0]}
+          </div>
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            B. {questions[3].options[1]}
+          </div>
         </div>
         <div
           style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
             display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
+            flexDirection: "row",
           }}
         >
-          B. {questions[3].options[1]}
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            C. {questions[3].options[2]}
+          </div>
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              padding: "0 120px",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            D. {questions[3].options[3]}
+          </div>
         </div>
         <div
           style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
+            color: "yellow",
+            fontSize: 20,
+            fontStyle: "italic",
             letterSpacing: "-0.025em",
             lineHeight: 1.4,
-            marginTop: 30,
+            marginTop: 60,
             display: "flex",
             padding: "0 120px",
             whiteSpace: "pre-wrap",
           }}
         >
-          C. {questions[3].options[2]}
-        </div>
-        <div
-          style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
-            display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          D. {questions[3].options[3]}
+          (Hodl on, we are almost there!)
         </div>
       </div>
     ),
@@ -621,12 +697,29 @@ app.frame("/q4", (c) => {
   });
 });
 
-app.frame("/q4", (c) => {
+function extractContentFromXML(xmlString: string): Record<string, string> {
+  const { XMLParser, XMLBuilder, XMLValidator } = require("fast-xml-parser");
+  const parser = new XMLParser();
+  let result = parser.parse(xmlString);
+  console.log(result, "result");
+  return result;
+}
+
+app.frame("/result", async (c) => {
   const { buttonValue, inputText, status, deriveState } = c;
   const fruit = inputText || buttonValue;
   console.log(result, "result");
-  result.qn_four = buttonValue;
-  console.log(c, "c2");
+  result.qn_four = buttonValue || "";
+  quiz[3].answer = buttonValue || "";
+
+  console.log(result, "result");
+  console.log(quiz, "quiz");
+  const personalityInfo = await classifyPersonality(
+    JSON.stringify(result.userCastsData),
+    JSON.stringify(quiz),
+  );
+  // console.log(c, "c2");
+  const jsonResult = extractContentFromXML(personalityInfo);
   return c.res({
     action: "/result",
     image: (
@@ -645,8 +738,57 @@ app.frame("/q4", (c) => {
           justifyContent: "center",
           textAlign: "center",
           width: "100%",
+          color: "white",
+          fontSize: 30,
         }}
-      ></div>
+      >
+        <div
+          style={{
+            color: "white",
+            fontSize: 40,
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 30,
+            display: "flex",
+            flexDirection: "row",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {jsonResult.personalitytype}
+        </div>
+        <div
+          style={{
+            color: "white",
+            fontSize: 30,
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 30,
+            display: "flex",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {jsonResult.reasoning}
+        </div>
+        <div
+          style={{
+            color: "yellow",
+            fontSize: 25,
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 30,
+            display: "flex",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {jsonResult.example}
+        </div>
+      </div>
     ),
     intents: [
       <Button value={questions[3]?.options[0]}>Like</Button>,
