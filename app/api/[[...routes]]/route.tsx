@@ -5,6 +5,12 @@ import { devtools } from "frog/dev";
 import { neynar } from "frog/hubs";
 import { handle } from "frog/next";
 import { serveStatic } from "frog/serve-static";
+import {
+  fetchAllFollowing,
+  fetchUser,
+  fetchFeedByFids,
+  fetchAndProcessFeeds,
+} from "@/app/lib/farcaster";
 
 const app = new Frog({
   assetsPath: "/",
@@ -33,12 +39,34 @@ let qna = [{
 // Uncomment to use Edge Runtime
 // export const runtime = 'edge'
 
-app.frame("/", (c) => {
-  const { buttonValue, status } = c;
+app.frame("/", async (c) => {
+  const { buttonValue, inputText, status } = c;
+  const fruit = inputText || buttonValue;
+  const user = await fetchUser(5650);
+  const feeds = await fetchAndProcessFeeds(5650);
+  console.log(feeds, "feeds");
+  // TODO: ai stuff
 
+  console.log(c, "c");
   return c.res({
-    action: "/q1",
-    image: (<div
+    action: "/picker",
+    image: "https://i.kym-cdn.com/entries/icons/mobile/000/032/280/meme1.jpg",
+    intents: [
+      <Button value="A">A</Button>,
+      <Button value="B">B</Button>,
+      // status === "response" && <Button.Reset>Reset</Button.Reset>,
+    ],
+  });
+});
+
+app.frame("/picker", (c) => {
+  const { buttonValue, inputText, status } = c;
+  const fruit = inputText || buttonValue;
+  console.log(c, "c2");
+  return c.res({
+    // action: "/picker",
+    image: (
+      <div
         style={{
           alignItems: "center",
           background:
