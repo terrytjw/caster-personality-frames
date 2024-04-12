@@ -15,9 +15,9 @@ export const classifyPersonality = async (
 
   const prompt = ChatPromptTemplate.fromTemplate(
     `
-    You are an expert at classifying personality types on Warpcast. Warpcast is a decentralized social media application built on the Farcaster protocol. It aims to provide users with a social media experience similar to traditional platforms like Twitter, but with the benefits of decentralization. "Casts" are posts on Warpcast.
+    You are an expert at classifying personality types on Warpcast. For context, Warpcast is a decentralized social media application built on the Farcaster protocol. It aims to provide users with a social media experience similar to traditional platforms like Twitter, but with the benefits of decentralization. "Casts" are posts on Warpcast.
 
-    We had the user sit through a quiz which will yield some results. You have been given a user's Warpcast data on the user's casts and their quiz results. You need to classify their personality type into one of these personality types:
+    We had the user sit through a quiz which will yield some results. You have been given a user's Warpcast data on the user's casts and their quiz results. Your task is to classify their personality type into one of these personality types:
     <4TypesofCasters>
         1. Shitposter
         Description: This type of caster is known for being sarcastic, trolling others, and frequently posting memes.
@@ -48,8 +48,20 @@ export const classifyPersonality = async (
 
     Respond in the following format:
     <personalitytype>personality_type</personalitytype>
-    <reasoning>reasoning (in point form)</reasoning>
+    <reasoning>reasoning (in maximum 3 concise bullet point, each less than 15 words)</reasoning>
     <example>an_example_cast_that_the_user_has_made</example>
+
+    An example of the response is:
+    <personalitytype>Shitposter</personalitytype>
+    <reasoning>
+      Based on the user's profile and quiz results, the user:
+        1. Posts memes and is sarcastic
+        2. Trolls others
+        3. Likes to make fun of others
+    </reasoning>
+    <example>
+        WIF to the moooooon
+    </example>
     `,
   );
 

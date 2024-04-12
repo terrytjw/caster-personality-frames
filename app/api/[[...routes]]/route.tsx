@@ -110,7 +110,7 @@ app.frame("/", async (c) => {
         <div
           style={{
             color: "white",
-            fontSize: 60,
+            fontSize: 32,
             fontStyle: "normal",
             letterSpacing: "-0.025em",
             lineHeight: 1.4,
@@ -126,7 +126,7 @@ app.frame("/", async (c) => {
         <div
           style={{
             color: "white",
-            fontSize: 30,
+            fontSize: 70,
             fontStyle: "normal",
             letterSpacing: "-0.025em",
             lineHeight: 1.4,
@@ -136,16 +136,16 @@ app.frame("/", async (c) => {
             whiteSpace: "pre-wrap",
           }}
         >
-          Want to know what kind of farcasters are you?
+          What kind of caster are you?
         </div>
         <div
           style={{
             color: "yellow",
-            fontSize: 20,
+            fontSize: 22,
             fontStyle: "italic",
             letterSpacing: "-0.025em",
             lineHeight: 1.4,
-            marginTop: 60,
+            marginTop: 120,
             display: "flex",
             padding: "0 120px",
             whiteSpace: "pre-wrap",
