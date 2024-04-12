@@ -15,6 +15,9 @@ import { dummyQuizData, dummyWarpcastData, questions } from "@/app/data";
 import { classifyPersonality } from "@/app/lib/openai";
 import { getERC721PreparedEncodedData } from "@/app/lib/thirdweb";
 import { erc721ContractABI } from "@/app/lib/erc721ContractABI";
+import { createSystem } from "frog/ui";
+
+const { Image } = createSystem();
 
 const app = new Frog({
   assetsPath: "/",
@@ -80,7 +83,8 @@ app.frame("/", async (c) => {
       <div
         style={{
           alignItems: "center",
-          backgroundImage: `url("https://i.kym-cdn.com/entries/icons/mobile/000/032/280/meme1.jpg")`,
+          // backgroundImage: ``,
+          backgroundImage: `url("https://preview.redd.it/i-think-doginme-is-a-good-bid-here-v0-p0c1mv36bxsc1.jpeg?auto=webp&s=0cd5c541a3cd2d923184d96b3d1e00ce804ac123")`,
           backgroundSize: "100% 100%",
           display: "flex",
           flexDirection: "column",
@@ -91,6 +95,7 @@ app.frame("/", async (c) => {
           width: "100%",
         }}
       >
+        {/* <Image src="/q2.jpg" height="90" width="96" objectFit="cover" /> */}
         <div
           style={{
             color: "white",
