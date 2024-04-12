@@ -743,67 +743,90 @@ app.frame("/result", async (c) => {
       <div
         style={{
           alignItems: "center",
-          background:
-            status === "response"
-              ? "linear-gradient(to right, #432889, #17101F)"
-              : "black",
+          backgroundImage:
+            jsonResult.personalitytype === "gm Officer"
+              ? `url("https://i.pinimg.com/736x/4a/8c/9b/4a8c9b9955a61c1458bbb3b1fe8c0902.jpg")`
+              : jsonResult.personalitytype === "Flex Monster"
+                ? `url("https://i.pinimg.com/736x/4a/8c/9b/4a8c9b9955a61c1458bbb3b1fe8c0902.jpg")`
+                : jsonResult.personalitytype === "Information Guru"
+                  ? `url("https://i.pinimg.com/736x/4a/8c/9b/4a8c9b9955a61c1458bbb3b1fe8c0902.jpg")`
+                  : `url("https://i.pinimg.com/736x/4a/8c/9b/4a8c9b9955a61c1458bbb3b1fe8c0902.jpg")`, //TODO: replace this
           backgroundSize: "100% 100%",
           display: "flex",
           flexDirection: "column",
+          justifyItems: "start",
           flexWrap: "nowrap",
           height: "100%",
           justifyContent: "center",
           textAlign: "center",
           width: "100%",
-          color: "white",
-          fontSize: 30,
         }}
       >
         <div
           style={{
-            color: "white",
-            fontSize: 40,
-            fontStyle: "bold",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
             display: "flex",
-            flexDirection: "row",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
+            flexDirection: "column",
+            justifyItems: "center",
+            flexWrap: "nowrap",
+            justifyContent: "center",
+            textAlign: "center",
+            paddingBottom: 50,
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
           }}
         >
-          {jsonResult.personalitytype}
-        </div>
-        <div
-          style={{
-            color: "white",
-            fontSize: 30,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
-            display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          {jsonResult.reasoning}
-        </div>
-        <div
-          style={{
-            color: "yellow",
-            fontSize: 25,
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            lineHeight: 1.4,
-            marginTop: 30,
-            display: "flex",
-            padding: "0 120px",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          {jsonResult.example}
+          <div
+            style={{
+              color: "white",
+              fontSize: 40,
+              fontWeight: "bold",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              marginTop: 30,
+              display: "flex",
+              justifyContent: "center",
+              justifyItems: "center",
+              flexDirection: "row",
+
+              textAlign: "center",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {jsonResult.personalitytype}
+          </div>
+          <div
+            style={{
+              color: "white",
+              fontSize: 30,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              display: "flex",
+              justifyContent: "center",
+              justifyItems: "center",
+              lineHeight: 1.4,
+              marginTop: 30,
+
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {jsonResult.reasoning}
+          </div>
+          <div
+            style={{
+              color: "yellow",
+              fontSize: 25,
+              fontStyle: "normal",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.4,
+              display: "flex",
+              justifyContent: "center",
+              justifyItems: "center",
+              marginTop: 30,
+
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {jsonResult.example}
+          </div>
         </div>
       </div>
     ),
