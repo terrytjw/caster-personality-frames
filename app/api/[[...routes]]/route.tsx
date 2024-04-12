@@ -31,7 +31,7 @@ const app = new Frog({
   // },
 });
 
-export const quiz = [
+const quiz = [
   {
     question: "How do you use Warpcast?",
     answer: "I show off my achievements",
