@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@coinbase/onchainkit": "^0.11.3",
+    "@langchain/anthropic": "^0.1.14",
     "@neynar/nodejs-sdk": "^1.17.0",
     "frog": "latest",
     "hono": "^4",
     "next": "14.1.0",
+    "prettier": "^3.2.5",
     "react": "^18",
     "react-dom": "^18"
   },

@@ -11,6 +11,8 @@ import {
   fetchFeedByFids,
   fetchAndProcessFeeds,
 } from "@/app/lib/farcaster";
+import { dummyQuizData, dummyWarpcastData } from "@/app/data";
+import { classifyPersonality } from "@/app/lib/openai";
 
 const app = new Frog({
   assetsPath: "/",
@@ -19,22 +21,24 @@ const app = new Frog({
   // hub: neynar({ apiKey: "NEYNAR_FROG_FM" }),
 });
 
-let qna = [{
+let qna = [
+  {
     question: "How do you use Warpcast?",
-    answer:""
+    answer: "",
   },
   {
     question: "What's your posting style?",
-    answer:""
+    answer: "",
   },
   {
     question: "What's your main content?",
-    answer:""
+    answer: "",
   },
   {
     question: "How do others describe you?",
-    answer:""
-  }];
+    answer: "",
+  },
+];
 
 // Uncomment to use Edge Runtime
 // export const runtime = 'edge'
@@ -44,10 +48,11 @@ app.frame("/", async (c) => {
   const fruit = inputText || buttonValue;
   const user = await fetchUser(5650);
   const feeds = await fetchAndProcessFeeds(5650);
-  console.log(feeds, "feeds");
+  // console.log(feeds, "feeds");
   // TODO: ai stuff
 
-  console.log(c, "c");
+  await classifyPersonality(dummyWarpcastData, dummyQuizData);
+
   return c.res({
     action: "/picker",
     image: "https://i.kym-cdn.com/entries/icons/mobile/000/032/280/meme1.jpg",
@@ -62,7 +67,7 @@ app.frame("/", async (c) => {
 app.frame("/picker", (c) => {
   const { buttonValue, inputText, status } = c;
   const fruit = inputText || buttonValue;
-  console.log(c, "c2");
+  // console.log(c, "c2");
   return c.res({
     // action: "/picker",
     image: (
@@ -98,7 +103,8 @@ app.frame("/picker", (c) => {
         >
           hello
         </div>
-      </div>),
+      </div>
+    ),
     intents: [
       <Button value="A">Yes</Button>,
       // status === "response" && <Button.Reset>Reset</Button.Reset>,
@@ -150,7 +156,7 @@ app.frame("/q1", (c) => {
     ),
     intents: [
       <Button value="oranges">O1</Button>,
-      <Button value="pear" >O2</Button>,
+      <Button value="pear">O2</Button>,
       <Button value="bananas">O3</Button>,
       <Button value="bananas">O4</Button>,
     ],
@@ -162,10 +168,10 @@ app.frame("/q2", (c) => {
   const answer = buttonValue;
 
   qna[1].answer = answer || "";
-  
+
   // console.log("context ->", c);
 
-  console.log("qna ->", qna);
+  // console.log("qna ->", qna);
 
   return c.res({
     action: "/q3",
