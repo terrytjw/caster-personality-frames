@@ -13,29 +13,22 @@ import {
 } from "@/app/lib/farcaster";
 import { dummyQuizData, dummyWarpcastData, questions } from "@/app/data";
 import { classifyPersonality } from "@/app/lib/openai";
+import { getERC721PreparedEncodedData } from "@/app/lib/thirdweb";
+import { erc721ContractABI } from "@/app/lib/erc721ContractABI";
 
-type State = {
-  user: any;
-  userCastsData: any;
-  qn_one: string;
-  qn_two: string;
-  qn_three: string;
-  qn_four: string;
-};
-
-const app = new Frog<{ State: State }>({
+const app = new Frog({
   assetsPath: "/",
   basePath: "/api",
   // Supply a Hub to enable frame verification.
   // hub: neynar({ apiKey: "NEYNAR_FROG_FM" }),
-  initialState: {
-    userCastsData: [],
-    user: {},
-    qn_one: "",
-    qn_two: "",
-    qn_three: "",
-    qn_four: "",
-  },
+  // initialState: {
+  //   userCastsData: [],
+  //   user: {},
+  //   qn_one: "",
+  //   qn_two: "",
+  //   qn_three: "",
+  //   qn_four: "",
+  // },
 });
 
 export const quiz = [
@@ -68,19 +61,73 @@ let result = {
 
 // Uncomment to use Edge Runtime
 // export const runtime = 'edge'
-
 app.frame("/", async (c) => {
   const { buttonValue, inputText, status, deriveState } = c;
   // const fruit = inputText || buttonValue;
-  // console.log(feeds, "feeds");
+  console.log(c, "c");
   const user = (await fetchUser(5650))?.result?.user;
   console.log(user, "user");
   const feeds: any = await fetchAndProcessFeeds(5650);
-  const state = await deriveState(async (previousState) => {
-    console.log(state, "in the state");
-    previousState.user = user;
-    previousState.userCastsData = feeds;
+
+  result.user = user;
+  result.userCastsData = feeds;
+  // TODO: ai stuff
+
+  console.log(c, "c");
+  return c.res({
+    action: "/user",
+    image: (
+      <div
+        style={{
+          alignItems: "center",
+          background:
+            status === "response"
+              ? "linear-gradient(to right, #432889, #17101F)"
+              : "black",
+          backgroundSize: "100% 100%",
+          display: "flex",
+          flexDirection: "column",
+          flexWrap: "nowrap",
+          height: "100%",
+          justifyContent: "center",
+          textAlign: "center",
+          width: "100%",
+        }}
+      >
+        <div
+          style={{
+            color: "white",
+            fontSize: 70,
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.4,
+            marginTop: 30,
+            display: "flex",
+            padding: "0 120px",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          What kind of caster are you?
+        </div>
+      </div>
+    ),
+    intents: [
+      // <Button value="A">A</Button>,
+      <Button value={"continue"}>Continue</Button>,
+      // status === "response" && <Button.Reset>Reset</Button.Reset>,
+    ],
   });
+});
+
+app.frame("/user", async (c) => {
+  const { buttonValue, inputText, status, deriveState } = c;
+  // const fruit = inputText || buttonValue;
+  console.log(c, "c");
+  const fid = c?.frameData?.fid || 5650;
+  const user = (await fetchUser(fid))?.result?.user;
+  console.log(user, "user");
+  const feeds: any = await fetchAndProcessFeeds(fid);
+
   result.user = user;
   result.userCastsData = feeds;
   // TODO: ai stuff
@@ -120,7 +167,7 @@ app.frame("/", async (c) => {
             whiteSpace: "pre-wrap",
           }}
         >
-          Welcome, <br />
+          Let's go, <br />
           {user.displayName}!
         </div>
         <div
@@ -136,7 +183,7 @@ app.frame("/", async (c) => {
             whiteSpace: "pre-wrap",
           }}
         >
-          What kind of caster are you?
+          Let's find out what kind of caster you are!
         </div>
         <div
           style={{
@@ -722,6 +769,21 @@ function extractContentFromXML(xmlString: string): Record<string, string> {
   return result;
 }
 
+// Get the encoded data
+async function createTransactionFrame(accountAddress: any, res: any) {
+  const data = await getERC721PreparedEncodedData(accountAddress);
+  return res.status(200).json({
+    chainId: "eip155:10",
+    method: "eth_sendTransaction",
+    params: {
+      abi: erc721ContractABI,
+      to: process.env.CONTRACT_ADDRESS_1,
+      data: data,
+      value: "0",
+    },
+  });
+}
+
 app.frame("/result", async (c) => {
   const { buttonValue, inputText, status, deriveState } = c;
   const fruit = inputText || buttonValue;
@@ -831,8 +893,8 @@ app.frame("/result", async (c) => {
       </div>
     ),
     intents: [
-      <Button value={questions[3]?.options[0]}>Like</Button>,
-      <Button value={questions[3]?.options[0]}>Share</Button>,
+      <Button value={questions[3]?.options[0]}>Mint (coming soon)</Button>,
+      // <Button value={questions[3]?.options[0]}>Share</Button>,
       // status === "response" && <Button.Reset>Reset</Button.Reset>,
     ],
   });
